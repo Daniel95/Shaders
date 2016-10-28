@@ -9,7 +9,7 @@
 	}
 
 	SubShader{
-	Tags{ "Queue" = "Transparent" "RenderType" = "Opaque" }
+	Tags{ "Queue" = "Transparent" "RenderType" = "Opaque" "DisableBatching" = "true" }
 	CGPROGRAM
 	#pragma surface surf Standard fullforwardshadows alpha vertex:vert
 
@@ -17,11 +17,10 @@
 		float2 uv_MainTex;
 	};
 
-
-	float _Interval, _Divider, _Scale, _Speed;
+	float _Scale, _Speed;
 
 	void vert(inout appdata_full v) {
-		v.vertex.xyz += sin((v.vertex.x * v.vertex.x) + (v.vertex.z * v.vertex.z) + (_Time.w * _Speed)) * _Scale;
+		v.vertex.y += sin((v.vertex.x * v.vertex.x) + (v.vertex.z * v.vertex.z) + (_Time.w * _Speed)) * _Scale;
 	}
 
 	sampler2D _MainTex;
@@ -41,4 +40,3 @@
 	}
 	Fallback "Diffuse"
 }
-
